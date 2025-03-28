@@ -27,7 +27,7 @@ function PageNav() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${
+      className={`fixed top-0 left-0 z-50 w-full font-tektur transition-all duration-300 ${
         scrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >

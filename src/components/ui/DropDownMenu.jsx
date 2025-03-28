@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 function DropdownMenu({ category }) {
   const menuItems = {
@@ -10,7 +11,7 @@ function DropdownMenu({ category }) {
         "Sneakers",
         "Gym & Training",
       ],
-      Clothing: ["T-Shirts", "Joggers", "Sweatshirts"],
+      Clothing: ["T-Shirts", "Joggers", "Sweatshirts", "Shorts", "Swimwear"],
       Accessories: ["Caps", "Bags", "Socks"],
       Sport: ["Basketball", "Football", "Tennis"],
       Brands: ["Nike", "Adidas", "Puma", "Reebok"],
@@ -31,27 +32,37 @@ function DropdownMenu({ category }) {
   };
 
   return (
-    <div className="fixed left-0 top-[4.7rem] w-full bg-white shadow-lg p-6 max-h-screen overflow-auto">
-      <div className="flex items-center justify-around gap-6 mt-4">
-        {Object.entries(menuItems[category] || {}).map(([heading, items]) => (
-          <div key={heading}>
-            <h4 className="bold mb-2">{heading}</h4>
-            <ul className="space-y-2">
-              {items.map((item) => (
-                <li key={item}>
-                  <Link
-                    to={`/products/${item.toLowerCase().replace(/\s/g, "-")}`}
-                    className="hover:underline text-sm"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="fixed left-0 top-[4.7rem] w-full bg-white shadow-lg p-6 max-h-screen overflow-auto"
+      >
+        <div className="flex items-start justify-around gap-12 mt-4 flex-wrap">
+          {Object.entries(menuItems[category] || {}).map(([heading, items]) => (
+            <div key={heading} className="min-w-[150px]">
+              <h4 className="bold mb-2 uppercase whitespace-nowrap">
+                {heading}
+              </h4>
+              <ul className="space-y-2">
+                {items.map((item) => (
+                  <li key={item}>
+                    <Link
+                      to={`/products/${item.toLowerCase().replace(/\s/g, "-")}`}
+                      className="hover:underline text-xs"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
