@@ -1,24 +1,23 @@
-import { HiOutlineHeart, HiOutlineSearch, HiOutlineUser } from "react-icons/hi";
+import { HiOutlineUser } from "react-icons/hi";
 import { HiOutlineBars4 } from "react-icons/hi2";
 import { TfiBag } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
+import Input from "./Input";
 
 function HomeMenuDetails({ scrolled }) {
   const navigate = useNavigate();
   const iconColor = scrolled ? "text-black" : "text-white";
 
   return (
-    <div className="flex items-center justify-center gap-3">
+    <div className="flex items-center p-1 justify-center  ">
       <ul className="flex items-center justify-center gap-3">
-        <li>
-          <button onClick={() => navigate("/search")} className={iconColor}>
-            <HiOutlineSearch size={24} />
-          </button>
+        <li className="hidden sm:block ">
+          <Input />
         </li>
 
         <li>
           <button onClick={() => navigate("/login")} className={iconColor}>
-            <HiOutlineUser size={24} />
+            <HiOutlineUser size={30} />
           </button>
         </li>
 
@@ -29,7 +28,7 @@ function HomeMenuDetails({ scrolled }) {
           >
             {/* Cart Icon */}
             <TfiBag
-              size={24}
+              size={28}
               className={scrolled ? "text-black" : "text-white"}
             />
 
@@ -37,12 +36,6 @@ function HomeMenuDetails({ scrolled }) {
             <div className="absolute -right-1.5 -top-2 flex h-5 w-5 items-center justify-center rounded-full border bg-black text-xs font-bold text-white shadow-md">
               0
             </div>
-          </button>
-        </li>
-
-        <li className="hidden sm:flex">
-          <button className={iconColor}>
-            <HiOutlineHeart size={24} />
           </button>
         </li>
 

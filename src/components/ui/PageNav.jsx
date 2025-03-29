@@ -31,10 +31,10 @@ function PageNav() {
         scrolled ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
-      <div className="container  mx-auto flex items-center justify-between px-4 py-4">
+      <div className="container mx-auto flex items-center justify-between px-4 py-4">
         <NavLink
           to="/"
-          className={`text-2xl font-bold cursor-pointer ${
+          className={`text-2xl font-bold font-kaushaun cursor-pointer ${
             scrolled ? "text-black" : "text-white"
           }`}
         >

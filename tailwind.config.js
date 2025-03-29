@@ -5,6 +5,7 @@ export default {
     extend: {
       fontFamily: {
         tektur: ["Tektur", "sans-serif"],
+        kaushaun: ["Kaushan Script", "cursive"],
       },
     },
   },
