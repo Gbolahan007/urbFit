@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import HomeMenuDetails from "./HomeMenuDetails";
 import HomeCursor from "./HomeCursor";
 import DropdownMenu from "./DropDownMenu";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 function PageNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -88,18 +90,22 @@ function PageNav() {
                 >
                   {item}
                 </NavLink>
-                {hoveredItem === item && item !== "Collection" && (
-                  <DropdownMenu category={item} />
-                )}
+                <AnimatePresence>
+                  {hoveredItem === item && item !== "Collection" && (
+                    <DropdownMenu category={item} />
+                  )}
+                </AnimatePresence>
               </li>
             ))}
 
             <HomeCursor position={position} />
           </ul>
         </div>
-        <div>
-          <HomeMenuDetails scrolled={scrolled} />
-        </div>
+        <motion.div>
+          <AnimatePresence>
+            <HomeMenuDetails scrolled={scrolled} />
+          </AnimatePresence>
+        </motion.div>
       </div>
     </nav>
   );

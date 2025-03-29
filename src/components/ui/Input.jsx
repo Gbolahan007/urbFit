@@ -16,11 +16,11 @@ function Input({
   };
 
   return (
-    <form className={`relative ${width} ${className}`}>
+    <form className={`relative ${width}  ${className}`}>
       {Icon && (
         <Icon
-          size={24}
           onClick={onClick}
+          size={24}
           className="absolute left-3 top-1/2  -translate-y-1/2 text-gray-500"
         />
       )}

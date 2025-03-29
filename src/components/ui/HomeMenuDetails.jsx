@@ -3,16 +3,59 @@ import { HiOutlineBars4 } from "react-icons/hi2";
 import { TfiBag } from "react-icons/tfi";
 import { useNavigate } from "react-router-dom";
 import Input from "./Input";
+import DropDownSearch from "./DropDownSearch";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import { FiSearch } from "react-icons/fi";
+import SideSearch from "./SideSearch";
+import { motion } from "framer-motion";
+import HamburgerMenu from "./HamburgerMenu";
 
 function HomeMenuDetails({ scrolled }) {
   const navigate = useNavigate();
+  const [dropSearch, setDropSearch] = useState(false);
+  const [onClickSearch, setonClickSearch] = useState(false);
+  const [hamburgerMenuModal, setHamburgerMenuModal] = useState(false);
+
+  function handleDropDownSearch() {
+    setDropSearch(true);
+  }
+  function handleSideSearch() {
+    setonClickSearch(true);
+  }
+  function handleHambugerMenu() {
+    setHamburgerMenuModal(true);
+  }
+
   const iconColor = scrolled ? "text-black" : "text-white";
 
   return (
     <div className="flex items-center p-1 justify-center  ">
       <ul className="flex items-center justify-center gap-3">
-        <li className="hidden sm:block ">
-          <Input />
+        <li className=" relative">
+          <motion.div className="hidden sm:block">
+            <div onClick={handleDropDownSearch}>
+              <Input />
+            </div>
+
+            <AnimatePresence>
+              {dropSearch && <DropDownSearch setDropSearch={setDropSearch} />}
+            </AnimatePresence>
+          </motion.div>
+
+          <motion.div
+            className={`sm:hidden cursor-pointer ${scrolled ? "text-black" : "text-white"}`}
+          >
+            <div onClick={handleSideSearch}>
+              <FiSearch size={28} />
+            </div>
+
+            <AnimatePresence>
+              {onClickSearch && (
+                <SideSearch setOnClickSearch={setonClickSearch} />
+              )}
+            </AnimatePresence>
+          </motion.div>
         </li>
 
         <li>
@@ -43,7 +86,15 @@ function HomeMenuDetails({ scrolled }) {
           <button
             className={`rounded-full p-2 transition-all duration-200 hover:bg-gray-100 ${iconColor}`}
           >
-            <HiOutlineBars4 size={24} />
+            <div onClick={handleHambugerMenu}>
+              <HiOutlineBars4 size={28} />
+            </div>
+
+            <AnimatePresence>
+              {hamburgerMenuModal && (
+                <HamburgerMenu setHamburgerMenuModal={setHamburgerMenuModal} />
+              )}
+            </AnimatePresence>
           </button>
         </li>
       </ul>
