@@ -12,7 +12,7 @@ function Input({
 
   const style = {
     primary: `rounded-full py-2 pl-10 sm:w-44 sm:focus:w-48 text-sm ${base}`,
-    box: `py-3 px-10 text-xl pl-14 ${base}`,
+    box: `py-3 px-20  text-xl pl-14 ${base}`,
   };
 
   return (

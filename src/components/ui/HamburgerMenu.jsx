@@ -17,14 +17,19 @@ function HamburgerMenu({ setHamburgerMenuModal }) {
       >
         {/* Close Button */}
         <button
-          className="absolute right-3 top-3 flex items-center justify-center rounded-full bg-gray-200 p-2 transition-all hover:bg-gray-300 active:scale-90"
+          className="absolute right-3 top-3 flex items-center justify-center rounded-full bg-gray-200 p-2 transition-all hover:bg-gray-200 active:scale-90"
           onClick={() => setHamburgerMenuModal(false)}
         >
           <HiOutlineXMark size={24} className="text-black" />
         </button>
 
         {/* Menu Items */}
-        <ul className="flex flex-col mt-16 gap-4 p-4">
+        <motion.ul
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ ease: "easeOut", duration: 0.5, delay: 0.5 }}
+          className="flex flex-col mt-16 gap-4 "
+        >
           <li>
             <button
               onClick={() => navigate("/collection/men")}
@@ -57,7 +62,7 @@ function HamburgerMenu({ setHamburgerMenuModal }) {
               Collection
             </button>
           </li>
-        </ul>
+        </motion.ul>
 
         {/* Login & Sign Up Buttons */}
         <div className="absolute bottom-6 left-0 w-full px-4">

@@ -1,7 +1,18 @@
 import { HiMiniXMark } from "react-icons/hi2";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function DropDownSearch({ setDropSearch }) {
+  const navigate = useNavigate();
+
+  const popularSearches = [
+    { name: "Sneakers", route: "/products/sneakers" },
+    { name: "Jersey", route: "/products/jersey" },
+    { name: "Pants", route: "/products/pants" },
+    { name: "Hoodie", route: "/products/hoodie" },
+    { name: "Sweatshirt", route: "/products/sweatshirt" },
+  ];
+
   return (
     <>
       {/* Overlay */}
@@ -26,9 +37,27 @@ function DropDownSearch({ setDropSearch }) {
           <HiMiniXMark className="text-gray-700 w-6 h-6" />
         </button>
 
-        {/* Your modal content */}
+        {/* Modal Content */}
+        <h1 className="text-xl font-bold mb-4">What are you buying?</h1>
 
-        <h1>What are you buying</h1>
+        {/* Popular Searches */}
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold mb-3">Popular Searches</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {popularSearches.map((item) => (
+              <button
+                key={item.name}
+                onClick={() => {
+                  navigate(item.route);
+                  setDropSearch(false); // Close modal after navigating
+                }}
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 transition duration-200 rounded-md text-sm font-medium text-gray-800"
+              >
+                {item.name}
+              </button>
+            ))}
+          </div>
+        </div>
       </motion.div>
     </>
   );

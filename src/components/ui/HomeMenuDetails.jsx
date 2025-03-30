@@ -76,18 +76,18 @@ function HomeMenuDetails({ scrolled }) {
             />
 
             {/* Cart Count Badge at the Tip */}
-            <div className="absolute -right-1.5 -top-2 flex h-5 w-5 items-center justify-center rounded-full border bg-black text-xs font-bold text-white shadow-md">
-              0
+            <div className="absolute -right-1.5 -top-2 flex h-6 w-6 items-center justify-center rounded-full border bg-black text-xs font-bold text-white shadow-md">
+              20
             </div>
           </button>
         </li>
 
         <li className="sm:hidden">
           <button
-            className={`rounded-full p-2 transition-all duration-200 hover:bg-gray-100 ${iconColor}`}
+            className={`rounded-full p-2 transition-all duration-200  ${iconColor}`}
           >
             <div onClick={handleHambugerMenu}>
-              <HiOutlineBars4 size={28} />
+              <HiOutlineBars4 size={30} />
             </div>
 
             <AnimatePresence>

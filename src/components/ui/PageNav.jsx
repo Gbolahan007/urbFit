@@ -1,22 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import HomeMenuDetails from "./HomeMenuDetails";
-import HomeCursor from "./HomeCursor";
-import DropdownMenu from "./DropDownMenu";
-import { AnimatePresence } from "framer-motion";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+
+// Lazy load components
+const HomeMenuDetails = lazy(() => import("./HomeMenuDetails"));
+const HomeCursor = lazy(() => import("./HomeCursor"));
+const DropdownMenu = lazy(() => import("./DropDownMenu"));
 
 function PageNav() {
   const [scrolled, setScrolled] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
-  const [position, setPosition] = useState({
-    left: 0,
-    width: 0,
-    opacity: 0,
-  });
+  const [position, setPosition] = useState({ left: 0, width: 0, opacity: 0 });
 
-  const refs = useRef([]); // ✅ Array of refs for each menu item
-  const navigate = useNavigate(); // ✅ Used to redirect "Collection" to /products
+  const refs = useRef([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,13 +39,12 @@ function PageNav() {
         >
           URBFIT
         </NavLink>
+
+        {/* Navigation Menu */}
         <div className="hidden sm:block">
           <ul
             onMouseLeave={() => {
-              setPosition((pv) => ({
-                ...pv,
-                opacity: 0,
-              }));
+              setPosition((prev) => ({ ...prev, opacity: 0 }));
               setHoveredItem(null);
             }}
             className={`flex space-x- relative mx-auto bg-transparent p-1 w-fit shadow-2xl rounded-full font-semibold border ${
@@ -58,19 +54,17 @@ function PageNav() {
             {["Men", "Kids", "Women", "Collection"].map((item, index) => (
               <li
                 key={item}
-                ref={(el) => (refs.current[index] = el)} // ✅ Store ref for each item
+                ref={(el) => (refs.current[index] = el)}
                 onMouseEnter={() => {
                   const element = refs.current[index];
                   if (!element) return;
-
                   const { width, left } = element.getBoundingClientRect();
                   setPosition({
                     width,
                     opacity: 1,
                     left:
-                      left - element.parentElement.getBoundingClientRect().left, // ✅ Relative to parent
+                      left - element.parentElement.getBoundingClientRect().left,
                   });
-
                   setHoveredItem(item);
                 }}
               >
@@ -82,8 +76,8 @@ function PageNav() {
                   }
                   onClick={(e) => {
                     if (item === "Collection") {
-                      e.preventDefault(); // Prevent default navigation
-                      navigate("/products"); // ✅ Redirects Collection to /products
+                      e.preventDefault();
+                      navigate("/collection");
                     }
                   }}
                   className="relative z-10 block cursor-pointer px-3 py-1.5 text-xs uppercase text-white mix-blend-difference md:px-5 md:py-3 md:text-base"
@@ -92,18 +86,27 @@ function PageNav() {
                 </NavLink>
                 <AnimatePresence>
                   {hoveredItem === item && item !== "Collection" && (
-                    <DropdownMenu category={item} />
+                    <Suspense fallback={null}>
+                      <DropdownMenu category={item} />
+                    </Suspense>
                   )}
                 </AnimatePresence>
               </li>
             ))}
 
-            <HomeCursor position={position} />
+            {/* Lazy-loaded HomeCursor */}
+            <Suspense fallback={null}>
+              <HomeCursor position={position} />
+            </Suspense>
           </ul>
         </div>
+
+        {/* Lazy-loaded HomeMenuDetails */}
         <motion.div>
           <AnimatePresence>
-            <HomeMenuDetails scrolled={scrolled} />
+            <Suspense fallback={null}>
+              <HomeMenuDetails scrolled={scrolled} />
+            </Suspense>
           </AnimatePresence>
         </motion.div>
       </div>
